@@ -16,4 +16,8 @@ public class Price {
     public BigDecimal value() {
         return value;
     }
+
+    public boolean lessThan(Price price) {
+        return this.value.compareTo(price.value) < 0;
+    }
 }

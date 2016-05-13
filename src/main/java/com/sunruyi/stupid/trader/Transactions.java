@@ -16,7 +16,7 @@ public class Transactions {
          this.operations = Arrays.asList(operations);
     }
 
-    public String print() {
+    public String operations() {
         StringBuilder builder = new StringBuilder();
         builder.append("[");
         for (int i = 0; i < size(); i++) {

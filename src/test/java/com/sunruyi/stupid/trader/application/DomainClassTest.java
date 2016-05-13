@@ -52,7 +52,7 @@ public class DomainClassTest {
 
     @Test
     public void transaction_should_has_a_operation_sequence() {
-        assertThat(new Transactions(new Buy(), new Sell(), new Pass()).print(), is("[Buy,Sell,Pass]"));
+        assertThat(new Transactions(new Buy(), new Sell(), new Pass()).operations(), is("[Buy,Sell,Pass]"));
     }
 
     @Test

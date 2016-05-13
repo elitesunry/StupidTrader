@@ -13,4 +13,8 @@ public class PriceSequence {
     public PriceSequence(Price... prices) {
         this.prices = Arrays.asList(prices);
     }
+
+    public boolean isRaiseUpTrend() {
+        return prices.get(0).lessThan(prices.get(prices.size() - 1));
+    }
 }
