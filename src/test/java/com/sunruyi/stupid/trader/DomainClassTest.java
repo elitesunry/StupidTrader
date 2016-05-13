@@ -1,4 +1,4 @@
-package com.sunruyi.stupid.trader.application;
+package com.sunruyi.stupid.trader;
 
 import com.sunruyi.stupid.trader.*;
 import com.sunruyi.stupid.trader.operation.Buy;
