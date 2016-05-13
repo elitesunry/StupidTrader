@@ -1,10 +1,7 @@
 package com.sunruyi.stupid.trader;
 
 import com.sunruyi.stupid.trader.operation.Operation;
-import com.sunruyi.stupid.trader.pricetrend.RaiseDownTread;
-import com.sunruyi.stupid.trader.pricetrend.RaiseUpThenDownTread;
-import com.sunruyi.stupid.trader.pricetrend.RaiseUpTread;
-import com.sunruyi.stupid.trader.pricetrend.Trend;
+import com.sunruyi.stupid.trader.pricetrend.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,36 +16,6 @@ public class PriceSequence {
 
     public PriceSequence(Price... prices) {
         this.prices = Arrays.asList(prices);
-    }
-
-    private boolean isRaiseUpTrend() {
-        for (int i = 0; i < size()-1; i++) {
-            Price currentPrice = prices.get(i);
-            Price nextPrice = prices.get(i + 1);
-            if(nextPrice.lessThan(currentPrice)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public boolean isRaiseDownTrend() {
-        for (int i = 0; i < size()-1; i++) {
-            Price currentPrice = prices.get(i);
-            Price nextPrice = prices.get(i + 1);
-            if(nextPrice.biggerThan(currentPrice)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public boolean isRaiseUpThenDownTrend() {
-        Price theBiggest = biggestPrice();
-        if(theBiggest.biggerThan(firstPrice()) && theBiggest.biggerThan(lastPrice())) {
-            return true;
-        }
-        return false;
     }
 
     public Price lastPrice() {
@@ -69,6 +36,16 @@ public class PriceSequence {
         return theBiggest;
     }
 
+    public Price smallestPrice() {
+        Price theSmallest = firstPrice();
+        for (Price price : prices) {
+            if(price.lessThan(theSmallest)) {
+                theSmallest = price;
+            }
+        }
+        return theSmallest;
+    }
+
     public Trend trend() {
         if(isRaiseUpTrend()) {
             return new RaiseUpTread(this);
@@ -76,9 +53,49 @@ public class PriceSequence {
             return new RaiseDownTread(this);
         } else if(isRaiseUpThenDownTrend()){
             return new RaiseUpThenDownTread(this);
+        } else if(isRaiseDownThenUpTrend()){
+            return new RaiseDownThenUpTread(this);
         } else {
             throw new IllegalStateException("Trader can not make a trade plan.");
         }
+    }
+
+    private boolean isRaiseUpTrend() {
+        for (int i = 0; i < size()-1; i++) {
+            Price currentPrice = prices.get(i);
+            Price nextPrice = prices.get(i + 1);
+            if(nextPrice.lessThan(currentPrice)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean isRaiseDownTrend() {
+        for (int i = 0; i < size()-1; i++) {
+            Price currentPrice = prices.get(i);
+            Price nextPrice = prices.get(i + 1);
+            if(nextPrice.biggerThan(currentPrice)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean isRaiseUpThenDownTrend() {
+        Price theBiggest = biggestPrice();
+        if(theBiggest.biggerThan(firstPrice()) && theBiggest.biggerThan(lastPrice())) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isRaiseDownThenUpTrend() {
+        Price theSmallest = smallestPrice();
+        if(theSmallest.lessThan(firstPrice()) && theSmallest.lessThan(lastPrice())) {
+            return true;
+        }
+        return false;
     }
 
     public int size() {

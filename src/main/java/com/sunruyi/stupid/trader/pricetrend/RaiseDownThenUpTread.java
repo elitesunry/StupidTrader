@@ -9,16 +9,16 @@ import com.sunruyi.stupid.trader.operation.Sell;
 /**
  * Created by ios on 16/5/14.
  */
-public class RaiseUpTread extends Trend {
+public class RaiseDownThenUpTread extends Trend {
 
-    public RaiseUpTread(PriceSequence priceSequence) {
+    public RaiseDownThenUpTread(PriceSequence priceSequence) {
         super(priceSequence);
     }
 
     @Override
     public Transactions transactions() {
-        Price firstPrice = priceSequence.firstPrice();
-        firstPrice.setOperation(new Buy());
+        Price smallestPrice = priceSequence.smallestPrice();
+        smallestPrice.setOperation(new Buy());
         Price lastPrice = priceSequence.lastPrice();
         lastPrice.setOperation(new Sell());
 

@@ -69,6 +69,9 @@ public class ApplicationTest {
      */
     @Test
     public void should_buy_at_bottom_sell_at_end() {
+        Price[] prices = {new Price("3"), new Price("2"), new Price("1"), new Price("2"), new Price("3")};
+        Transactions transactions = new StupidTrader(prices).plan();
+        assertThat(transactions.operations(), is("[Pass,Pass,Buy,Pass,Sell]"));
     }
 
 }
