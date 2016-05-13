@@ -2,7 +2,6 @@ package com.sunruyi.stupid.trader;
 
 import com.sunruyi.stupid.trader.operation.Operation;
 import com.sunruyi.stupid.trader.operation.Pass;
-import com.sunruyi.stupid.trader.operation.Sell;
 
 import java.math.BigDecimal;
 
@@ -23,6 +22,13 @@ public class Price {
         return value;
     }
 
+    public boolean lessThan(Price price) {
+        return this.value.compareTo(price.value) < 0;
+    }
+
+    public boolean biggerThan(Price price) {
+        return this.value.compareTo(price.value) > 0;
+    }
 
     public void setOperation(Operation operation) {
         this.operation = operation;
@@ -30,14 +36,6 @@ public class Price {
 
     public Operation operation() {
         return operation;
-    }
-
-    public boolean lessThan(Price price) {
-        return this.value.compareTo(price.value) < 0;
-    }
-
-    public boolean biggerThan(Price price) {
-        return this.value.compareTo(price.value) > 0;
     }
 
     @Override
