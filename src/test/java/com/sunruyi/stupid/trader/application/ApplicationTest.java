@@ -1,5 +1,9 @@
 package com.sunruyi.stupid.trader.application;
 
+import com.sunruyi.stupid.trader.Transactions;
+import com.sunruyi.stupid.trader.operation.Buy;
+import com.sunruyi.stupid.trader.operation.Pass;
+import com.sunruyi.stupid.trader.operation.Sell;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -22,7 +26,8 @@ public class ApplicationTest {
      */
     @Test
     public void should_buy_at_start_sell_at_end() {
-        assertThat("ok", is("ok"));
+        Transactions transactions = new Transactions(new Buy(), new Pass(), new Pass(), new Pass(), new Sell());
+        assertThat(transactions.print(), is("[Buy,Pass,Pass,Pass,Sell]"));
     }
 
     /**
