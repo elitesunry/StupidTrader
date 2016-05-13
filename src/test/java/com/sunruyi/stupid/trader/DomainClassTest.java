@@ -1,6 +1,5 @@
 package com.sunruyi.stupid.trader;
 
-import com.sunruyi.stupid.trader.*;
 import com.sunruyi.stupid.trader.operation.Buy;
 import com.sunruyi.stupid.trader.operation.Operation;
 import com.sunruyi.stupid.trader.operation.Pass;
@@ -53,17 +52,6 @@ public class DomainClassTest {
     @Test
     public void transaction_should_has_a_operation_sequence() {
         assertThat(new Transactions(new Buy(), new Sell(), new Pass()).operations(), is("[Buy,Sell,Pass]"));
-    }
-
-    @Test
-    public void one_day_has_a_price_a_operation() {
-        assertThat(new Day(new Price("3"), new Operation()), isA(Day.class));
-    }
-
-    @Test
-    public void one_day_has_a_price_and_its_operation_default_is_pass() {
-        Day actual = new Day(new Price("3"));
-        assertThat(actual.operation().code(), is(new Pass().code()));
     }
 
     @Test
